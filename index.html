@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="CWI: Composite Humanoid Whole-Body Imitation System for Loco-manipulation">
+  <meta name="keywords"
+    content="humanoid, loco-manipulation, whole-body control, imitation learning, motion capture, AMP, teleoperation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CWI: Composite Humanoid Whole-Body Imitation System for Loco-manipulation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <style>
+    :root {
+      --ink: #14171f;
+      --muted: #4f5b66;
+      --line: #d9dee7;
+      --soft: #f6f8fb;
+      --accent: #2364aa;
+      --accent-2: #b23a48;
+    }
+
+    body {
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .hero-body {
+      padding-top: 3.5rem;
+      padding-bottom: 2rem;
+    }
+
+    .publication-title {
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.08;
+    }
+
+    .publication-authors {
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .affiliations {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.55;
+      margin-top: 0.6rem;
+    }
+
+    .publication-links {
+      margin-top: 1rem;
+    }
+
+    .button-icon {
+      display: inline-flex;
+      height: 1.1em;
+      margin-right: 0.35rem;
+      width: 1.1em;
+    }
+
+    .button-icon svg {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    .teaser-image,
+    .paper-image {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .comparison-image {
+      display: block;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .section.soft {
+      background: var(--soft);
+    }
+
+    .section-kicker {
+      color: var(--accent-2);
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1.4rem;
+    }
+
+    .feature-card,
+    .video-card,
+    .metric-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      height: 100%;
+      padding: 1rem;
+    }
+
+    .feature-card h3,
+    .metric-card h3 {
+      color: var(--accent);
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-card p,
+    .metric-card p,
+    .video-card p {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .video-feature {
+      margin-top: 1.5rem;
+    }
+
+    .video-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .video-card video {
+      display: block;
+      width: 100%;
+      background: #000000;
+    }
+
+    .video-copy {
+      padding: 1rem;
+    }
+
+    .video-copy h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .image-grid {
+      display: grid;
+      gap: 1.2rem;
+      grid-template-columns: 1fr;
+      margin-top: 1.4rem;
+    }
+
+    .image-grid .wide {
+      grid-column: 1 / -1;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      margin-top: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .ablation-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      line-height: 1.45;
+    }
+
+    .ablation-table th,
+    .ablation-table td {
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .ablation-table th:first-child,
+    .ablation-table td:first-child {
+      text-align: left;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .ablation-table thead th {
+      background: #f0f4f8;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .ablation-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .best {
+      font-weight: 700;
+    }
+
+    .second {
+      text-decoration: underline;
+      text-underline-offset: 0.16em;
+    }
+
+    .bad {
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero-body {
+        padding-top: 2.4rem;
+      }
+
+      .publication-title {
+        font-size: 2rem !important;
+      }
+
+      .feature-list,
+      .image-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              CWI: <strong>C</strong>omposite Humanoid <strong>W</strong>hole-Body
+              <strong>I</strong>mitation System for Loco-manipulation
+            </h1>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Wenqi Ge<sup>1,2,*</sup>,</span>
+              <span class="author-block">Junde Guo<sup>1,3,*</sup>,</span>
+              <span class="author-block">Zhen Fu<sup>1,3,&dagger;</sup>,</span>
+              <span class="author-block">Shunpeng Yang<sup>1,4</sup>,</span>
+              <span class="author-block">Jiayu Chen<sup>2</sup>,</span>
+              <span class="author-block">Hua Chen<sup>1,5</sup></span>
+            </div>
+
+            <div class="publication-authors affiliations">
+              <div><sup>*</sup>Equal contribution. <sup>&dagger;</sup>Project Lead.</div>
+              <div><sup>1</sup>LimX Dynamics</div>
+              <div><sup>2</sup>The University of Hong Kong</div>
+              <div><sup>3</sup>Southern University of Science and Technology</div>
+              <div><sup>4</sup>Hong Kong University of Science and Technology</div>
+              <div><sup>5</sup>ZJU-UIUC Institute, Zhejiang University</div>
+            </div>
+
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="" class="external-link button is-normal is-rounded is-dark">
+                  <span class="button-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <path d="M14 2v6h6"></path>
+                      <path d="M9 15h6"></path>
+                      <path d="M9 18h4"></path>
+                    </svg>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="" class="external-link button is-normal is-rounded is-dark">
+                  <span class="button-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.6 4.6 12 4.6 12 4.6s-5.6 0-7.5.5a3 3 0 0 0-2.1 2.1A31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.9.5 7.5.5 7.5.5s5.6 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z">
+                      </path>
+                    </svg>
+                  </span>
+                  <span>Videos</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pt-0">
+    <div class="container is-max-desktop">
+      <img src="./static/images/cwi-teaser.png" class="teaser-image"
+        alt="CWI real-world humanoid loco-manipulation demonstrations.">
+      <p class="has-text-centered mt-3">
+        CWI enables diverse whole-body loco-manipulation skills with stable locomotion and dexterous upper-body control.
+      </p>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <p class="section-kicker">Abstract</p>
+          <h2 class="title is-3">Composite Whole-Body Imitation</h2>
+          <div class="content has-text-justified">
+            <p>
+              Achieving everyday tasks with humanoid robots requires coordinating stable locomotion with versatile
+              manipulation. However, existing whole-body controllers still face significant challenges. Methods trained
+              solely via command sampling, without motion-capture (MoCap) data, often struggle with sparse rewards and
+              require carefully tuned curricula to converge. This is especially problematic for upper-body control,
+              where the resulting motions deviate from human-like statistics and degrade whole-body coordination.
+              Conversely, approaches that imitate full-body MoCap data suffer from dataset imbalance, as many locomotion
+              trajectories are overly aggressive for stable-locomotion scenarios, necessitating extensive data filtering
+              and augmentation.
+            </p>
+            <p>
+              To address this, we present Composite Whole-Body Imitation (CWI), a framework that decouples the use of
+              MoCap data for upper-body manipulation and lower-body locomotion. This decoupling allows us to exploit the
+              full MoCap dataset of diverse manipulation references, while stable, command-conditioned lower-body
+              locomotion is guided by dual discriminators trained on curated expert-quality walking and squatting clips
+              via an Adversarial Motion Prior (AMP). A multi-critic architecture reduces conflicts among locomotion,
+              manipulation, and motion-style objectives, and a teacher-student distillation stage yields a whole-body
+              policy conditioned only on bimanual hand poses and velocity/height commands.
+            </p>
+            <p>
+              We evaluate CWI through simulation experiments and real-world deployment on a full-size LimX Oli humanoid.
+              The results show competitive loco-manipulation performance, robust whole-body coordination, and practical
+              teleoperation without full-body motion-capture equipment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="videos">
+    <div class="container is-max-desktop">
+      <p class="section-kicker">Videos</p>
+      <h2 class="title is-3">Supplementary Demonstrations</h2>
+      <p class="lead">
+        The project studies whole-body coordination across long-horizon loco-manipulation, precise interaction, and
+        stable command-conditioned movement.
+      </p>
+
+      <div class="video-feature">
+        <div class="video-card">
+          <video controls muted loop playsinline preload="metadata">
+            <source src="./static/videos/cwi-main.mp4" type="video/mp4">
+          </video>
+          <div class="video-copy">
+            <h3>CWI Whole-Body Loco-Manipulation</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <p class="section-kicker">Method</p>
+      <h2 class="title is-3">A Decoupled Imitation Pipeline for Humanoid Loco-Manipulation</h2>
+      <p class="lead">
+        CWI separates the roles of motion data instead of forcing one full-body MoCap distribution to explain both
+        dexterous manipulation and stable locomotion. The system learns expressive upper-body tracking from full AMASS
+        references, while compact expert walking and squatting clips provide lower-body style priors through AMP.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-card">
+          <h3>Data Decoupling</h3>
+          <p>
+            Full upper-body MoCap trajectories are retained for manipulation, while curated lower-body clips guide
+            command-conditioned walking and squatting.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>Composite Objective</h3>
+          <p>
+            Locomotion rewards, upper-body tracking rewards, and AMP style rewards are optimized with a multi-critic
+            actor to reduce conflicts among objectives.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>Deployable Student</h3>
+          <p>
+            A teacher-student stage distills the policy into a real-robot controller driven by bimanual hand poses plus
+            velocity and base-height commands.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <img src="./static/images/cwi-framework.png" class="paper-image"
+          alt="Overview of the Composite Whole-Body Imitation framework.">
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container is-max-desktop">
+      <p class="section-kicker">Evaluation</p>
+      <h2 class="title is-3">Simulation and Real-World Results</h2>
+      <p class="lead">
+        CWI is evaluated on the 31-DoF LimX Oli full-size humanoid in IsaacLab and on hardware. The study compares
+        representative humanoid whole-body controllers, ablates the multi-critic, distillation, and AMP components, and
+        validates practical VR-based teleoperation.
+      </p>
+
+      <div class="image-grid">
+        <div class="metric-card">
+          <h3>Comparison Study</h3>
+          <p>
+            CWI achieves the strongest overall trade-off across success rate, keybody tracking, velocity tracking,
+            yaw-rate tracking, and base-height tracking metrics.
+          </p>
+          <img src="./static/images/cwi-comparison.png" class="paper-image comparison-image mt-3"
+            alt="Quantitative comparison of loco-manipulation controllers.">
+        </div>
+        <div class="metric-card">
+          <h3>Ablation Study</h3>
+          <p>
+            Removing the multi-critic, distillation, or AMP prior degrades either manipulation tracking, locomotion
+            stability, or motion naturalness, highlighting the role of each component.
+          </p>
+          <div class="table-scroll">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>v<sub>xy</sub><sup>err</sup><br>(m/s)</th>
+                  <th>&omega;<sub>z</sub><sup>err</sup><br>(rad/s)</th>
+                  <th>h<sup>err</sup><br>(mm)</th>
+                  <th>p<sub>ee</sub><sup>err</sup><br>(mm)</th>
+                  <th>R<sub>ee</sub><sup>err</sup><br>(rad)</th>
+                  <th>d<sub>DTW</sub><br>(rad)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Baseline</td>
+                  <td class="second">0.100</td>
+                  <td class="second">0.1825</td>
+                  <td class="second">19.65</td>
+                  <td class="best">42.91</td>
+                  <td class="best">0.1708</td>
+                  <td class="second">0.452</td>
+                </tr>
+                <tr>
+                  <td>w/o MC</td>
+                  <td class="best">0.099</td>
+                  <td>0.199</td>
+                  <td>20.64</td>
+                  <td>55.49</td>
+                  <td>0.2308</td>
+                  <td>0.520</td>
+                </tr>
+                <tr>
+                  <td>w/o Distill</td>
+                  <td class="best">0.099</td>
+                  <td class="best">0.147</td>
+                  <td class="best">19.43</td>
+                  <td class="bad">173.2</td>
+                  <td class="bad">0.6723</td>
+                  <td class="best">0.444</td>
+                </tr>
+                <tr>
+                  <td>w/o AMP</td>
+                  <td>0.125</td>
+                  <td>0.242</td>
+                  <td>22.52</td>
+                  <td class="second">42.92</td>
+                  <td class="second">0.1696</td>
+                  <td class="bad">1.413</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="metric-card wide">
+          <h3>Whole-Body Coordination</h3>
+          <p>
+            In real-world box lifting, the policy coordinates hand reach and torso posture without an explicit torso
+            command, preserving upper-body dexterity while maintaining stable locomotion.
+          </p>
+          <img src="./static/images/cwi-coordination.png" class="paper-image mt-3"
+            alt="Real-world whole-body coordination analysis.">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{ge2025cwi,
+  author  = {Ge, Wenqi and Guo, Junde and Fu, Zhen and Yang, Shunpeng and Chen, Jiayu and Chen, Hua},
+  title   = {CWI: Composite Humanoid Whole-Body Imitation System for Loco-manipulation},
+  journal = {IEEE Robotics and Automation Letters},
+  year    = {2025}
+}</code></pre>
+    </div>
+  </section>
+</body>
+
+</html>
